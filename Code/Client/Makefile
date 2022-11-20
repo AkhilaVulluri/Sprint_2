@@ -1,5 +1,5 @@
 client: main.o log_in.o instruction.o
-	g++ main.o log_in.o instruction.o -o server
+	g++ main.o log_in.o instruction.o -o client
 
 main.o: main.cpp
 	g++ -c main.cpp
