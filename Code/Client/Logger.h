@@ -5,21 +5,22 @@ using namespace std;
 #include <mutex>
 #define LOG_FILE "log.txt"
 #include <fstream>
-
+#pragma warning(push, 0)
+// Some include(s) with unfixable warnings
+#pragma warning(pop)
 enum LogPriority
 {
 	TracePriority, DebugPriority, InfoPriority, WarnPriority, ErrorPriority, CriticalPriority
 };
 
-ofstream file(LOG_FILE);
+ofstream file(LOG_FILE,ios::app);
 
 
 class Logger
 {
 private:
 	static LogPriority priority;
-//	FILE *file;
-//	file=fopen("log.txt","w+");
+
 
 
 public:
@@ -29,7 +30,7 @@ public:
 	}
 
 	template<typename... Args>
-	static void Trace(const char* message, Args... args)
+	static void Trace(string name,int line,const char* message, Args... args)
 	{
 		if (priority <= TracePriority)
 		{
@@ -38,11 +39,12 @@ public:
 			printf(message, args...);
 			printf("[%s] [%s] [%s] [line:%d] ",__TIME__,__FILE__,__func__,__LINE__);
 			printf("\n");
+			file<<"\tDATE:"<<__DATE__<<"\tTIME:"<<__TIME__<<"\tFILENAME:"<<name<<"\tFUNCTIONNAME:"<<__func__<<"\t[line]:"<<line<<"\t"<<message<<endl;
 		}
 	}
 
 	template<typename... Args>
-	static void Debug(const char* message, Args... args)
+	static void Debug(string name,int line,const char* message, Args... args)
 	{
 		if (priority <= DebugPriority)
 		{
@@ -51,11 +53,12 @@ public:
 			printf(message, args...);
 			printf("[%s] [%s] [%s] [line:%d] ",__TIME__,__FILE__,__func__,__LINE__);
 			printf("\n");
+			file<<"\tDATE:"<<__DATE__<<"\tTIME:"<<__TIME__<<"\tFILENAME:"<<name<<"\tFUNCTIONNAME:"<<__func__<<"\t[line]:"<<line<<"\t"<<message<<endl;
 		}
 	}
 
 	template<typename... Args>
-	static void Info(const char* message, Args... args)
+	static void Info(string name,int line,const char* message, Args... args)
 	{
 		if (priority <= InfoPriority)
 		{
@@ -64,13 +67,13 @@ public:
 			printf(message, args...);
 			printf("[%s] [%s] [%s] [line:%d] ",__TIME__,__FILE__,__func__,__LINE__);
 			printf("\n");
-			file<<"\tTIME:"<<__TIME__<<"\tFILENAME:"<<__FILE__<<"\tFUNCTIONNAME:"<<__func__<<message<<"\tLINE NUMBER:"<<__LINE__;
+			file<<"\tDATE:"<<__DATE__<<"\tTIME:"<<__TIME__<<"\tFILENAME:"<<name<<"\tFUNCTIONNAME:"<<__func__<<"\t[line]:"<<line<<"\t"<<message<<endl;
 			cout<<endl;
 		}
 	}
 
 	template<typename... Args>
-	static void Warn(const char* message, Args... args)
+	static void Warn(string name,int line,const char* message, Args... args)
 	{
 		if (priority <= WarnPriority)
 		{
@@ -79,11 +82,12 @@ public:
 			printf(message, args...);
 			printf("[%s] [%s] [%s] [line:%d] ",__TIME__,__FILE__,__func__,__LINE__);
 			printf("\n");
+			file<<"\tDATE:"<<__DATE__<<"\tTIME:"<<__TIME__<<"\tFILENAME:"<<name<<"\tFUNCTIONNAME:"<<__func__<<"\t[line]:"<<line<<"\t"<<message<<endl;
 		}
 	}
 
 	template<typename... Args>
-	static void Error(const char* message, Args... args)
+	static void Error(string name,int line,const char* message, Args... args)
 	{
 		if (priority <= ErrorPriority)
 		{
@@ -92,11 +96,12 @@ public:
 			printf(message, args...);
 			printf("[%s] [%s] [%s] [line:%d] ",__TIME__,__FILE__,__func__,__LINE__);
 			printf("\n");
+			file<<"\tDATE:"<<__DATE__<<"\tTIME:"<<__TIME__<<"\tFILENAME:"<<name<<"\tFUNCTIONNAME:"<<__func__<<"\t[line]:"<<line<<"\t"<<message<<endl;
 		}
 	}
 
 	template<typename... Args>
-	static void Critical(const char* message, Args... args)
+	static void Critical(string name,int line,const char* message, Args... args)
 	{
 		if (priority <= CriticalPriority)
 		{
@@ -105,6 +110,7 @@ public:
 			printf(message, args...);
 			printf("[%s] [%s] [%s] [line:%d] ",__TIME__,__FILE__,__func__,__LINE__);
 			printf("\n");
+			file<<"\tDATE:"<<__DATE__<<"\tTIME:"<<__TIME__<<"\tFILENAME:"<<name<<"\tFUNCTIONNAME:"<<__func__<<"\t[line]:"<<line<<"\t"<<message<<endl;
 		}
 	}
 };
