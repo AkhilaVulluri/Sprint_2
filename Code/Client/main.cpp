@@ -79,7 +79,7 @@ int main()
 welcomeScreen();
  sleep(3);
  instruction();
- cout<<"THE GAME WILL START IN '3' SEC";
+ cout<<"THE GAME WILL START IN '3' SEC\n";
   sleep(1);
    cout<<"3\n";
  sleep(1);
@@ -126,7 +126,7 @@ welcomeScreen();
 	jump2:
 		cout<<"Exit\n";
 		cout<<"THANK U FOR PLAYING THE GAME \n";
-		cout<<"HAVE A NICE DAY..........!!!!!";
+		cout<<"HAVE A NICE DAY..........!!!!!\n";
 		close(ccleintid);
 		return 0;
 	}
