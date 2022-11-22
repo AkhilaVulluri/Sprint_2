@@ -6,8 +6,9 @@
 #include<unistd.h>
 #include<string.h>
 #include<iostream>
+#include<sstream>
 #include<bits/stdc++.h>
-#include "header.h"
+#include"header.h"
 using namespace std;
 
 char square[10] = { 'o', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -75,9 +76,7 @@ void board()
 
 int main()
 {
-
-
- welcomeScreen();
+welcomeScreen();
  sleep(3);
  instruction();
  cout<<"THE GAME WILL START IN '3' SEC";
@@ -87,8 +86,7 @@ int main()
    cout<<"2\n";
  sleep(1);
    cout<<"1\n";
-
-
+	
     FILE *filep;
     filep=fopen("score.txt","aopen+");
     fclose(filep);
@@ -97,38 +95,46 @@ int main()
 	int ccleintid;
 	char str[100];
 	int clientid;
-	int msgbyte;
+	int msgbyte,cho;
 	int choice,aopen,schoice;
 	int icount;
 	char mark;
+	stringstream ss;
 	
    // rules();
-    cout<<"\n\nType 1 to start the game:-\nType 2 to view leader board:-\n";
+   
+    cout<<"\n\nType 1 to start the game:-\nType 2 to view leader board:-\nType 3 to exit:-\n";
     cin>>schoice;
     if(schoice==2)
     {
-leader:
-	int cho;
+	leader:
         cout<<"\n\n";
         cout<<"\tLEADERBOARD\n\n";
         char cfile;
         filep=fopen("score.txt","r");
-	cout<<"\n";
+		cout<<"\n";
         while((cfile=getc(filep))!=EOF)
         {
             cout<<cfile;
         }
-	cout<<"\n";
+		cout<<"\n";
         fclose(filep);
-		cout<<"\n\nPress 1 to start the game:- ";
-        cin>>cho;
-        if(cho==1)
-            goto jump;
-        else
-            getchar();
+		
 	}
+	if(schoice==3)
+	{
+	jump2:
+		cout<<"Exit\n";
+		cout<<"THANK U FOR PLAYING THE GAME \n";
+		cout<<"HAVE A NICE DAY..........!!!!!";
+		close(ccleintid);
+		return 0;
+	}
+	
 	if(schoice==1)
 	{
+	int port;
+	port=6999;
 	jump:
 		ccleintid=socket(AF_INET,SOCK_STREAM,0);
 		if(ccleintid==-1)
@@ -137,10 +143,10 @@ leader:
 			exit(0);
 		}
 		cout<<"IN SOCKET CREATION IN CLIENT SIDE SUCCESSFUL\n";
-		
+		port+=1;
 		struct sockaddr_in csadd;
 		csadd.sin_family=AF_INET;
-		csadd.sin_port=htons(6999);
+		csadd.sin_port=htons(port);
 		csadd.sin_addr.s_addr=inet_addr("10.0.2.15");
 		int c=connect(ccleintid,(struct sockaddr*)&csadd,sizeof(csadd));
 		if(c==0)
@@ -152,9 +158,8 @@ leader:
 			cout<<"CONNECTION ESTABLISHMENT UNSUCCESSFUL\n";
 			exit(0);
 		}
-
-		icount = checkwin();
-		
+	
+		icount = -1;
 		while(icount!=1)
 		{		
 			board();
@@ -207,13 +212,35 @@ leader:
 			if(choice==10)
 			{
 				cout<<"You win";
+				square[1] = '1';
+				square[2] = '2';
+				square[3] = '3';
+				square[4] = '4';
+				square[5] = '5';
+				square[6] = '6';
+				square[7] = '7';
+				square[8] = '8';
+				square[9] = '9';
+				close(ccleintid);
 				cout<<"\n";
 				fprintf(filep,"\t\nClient\n");
 				cout<<"\n";
 				getchar();
 				fclose(filep);
-				close(ccleintid);
-				goto leader;
+				cout<<"\n\nPress 1 to Play Again:- ";
+				cout<<"\n\nPress 2 to see the Leaderboard";
+				cout<<"\n\nPress 3 to Exit:-";
+				cout<<"\n";
+				cin>>cho;
+				if(cho==1)
+					goto jump;
+				else if(cho==2)
+					goto leader;
+				else if(cho==3)
+					goto jump2;
+				else 
+					getchar();
+				break;
 				
 			}
 			mark='O';
@@ -254,21 +281,43 @@ leader:
 			{	board();
 				int flag=11;
 				cout<<"server win";
+				square[1] = '1';
+				square[2] = '2';
+				square[3] = '3';
+				square[4] = '4';
+				square[5] = '5';
+				square[6] = '6';
+				square[7] = '7';
+				square[8] = '8';
+				square[9] = '9';
+				close(ccleintid);
 				cout<<"\n";
 				fprintf(filep,"\t\nServer\n");
 				cout<<"\n";
 				getchar();
 				fclose(filep);
 				msgbyte=send(ccleintid,&flag,sizeof(flag),0);
-				close(ccleintid);
-				goto leader;
+				cout<<"\n\nPress 1 to Play Again:- ";
+				cout<<"\n\nPress 2 to see the Leaderboard";
+				cout<<"\n\nPress 3 to Exit:-";
+				cout<<"\n";
+				cin>>cho;
+				if(cho==1)
+					goto jump;
+				else if(cho==2)
+					goto leader;
+				else if(cho==3)
+					goto jump2;
+				else 
+					getchar();
+				break;
 				
 			}
 			
 		
 		}
-		close(ccleintid);
-		return 0;
+		
 	}  
-
+close(ccleintid);
+		return 0;
 }
