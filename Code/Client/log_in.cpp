@@ -22,7 +22,7 @@ void welcomeScreen ()
   
   
   
-     // declaration of varabiles
+         // declaration of varabiles
      
        string name;
        char gender;
@@ -33,6 +33,8 @@ void welcomeScreen ()
     cout << "\n Enter User Name  :  ";
     getline (cin,name);
 
+
+      lable1:
      cout<< "\n Enter User Age :";
      cin>> age;
     if(age >18)
@@ -42,20 +44,21 @@ void welcomeScreen ()
     else
     {
     Logger::Error(__FILE__,__LINE__,"ERROR");
+    goto lable1;
     }
     
      //Reading gender from user
-
+       lable2:
      cout << "\n Enter gender (M/m or F/f ): ";
      cin >> gender;
        
 	if(gender =='m' || gender=='M' || gender=='f' || gender=='F'){
 
-	   
-	Logger::Info(__FILE__,__LINE__,"VALID SUCCESSFULLY");
+		Logger::Info(__FILE__,__LINE__,"VALID SUCCESSFULLY");
 	}
 	else{
 		Logger::Error(__FILE__,__LINE__,"ERROR");
+		goto lable2;
 	}
 
 }
