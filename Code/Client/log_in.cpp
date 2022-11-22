@@ -37,11 +37,11 @@ void welcomeScreen ()
      cin>> age;
     if(age >18)
     {
-    Logger :: Info("valid age");
+    Logger::Info(__FILE__,__LINE__,"VALID SUCCESSFULLY");
     }
     else
     {
-    Logger :: Error("invalid input");
+    Logger::Error(__FILE__,__LINE__,"ERROR");
     }
     
      //Reading gender from user
@@ -51,10 +51,11 @@ void welcomeScreen ()
        
 	if(gender =='m' || gender=='M' || gender=='f' || gender=='F'){
 
-	    Logger :: Info("Login successful");
+	   
+	Logger::Info(__FILE__,__LINE__,"VALID SUCCESSFULLY");
 	}
 	else{
-		Logger :: Error("invalid input");
+		Logger::Error(__FILE__,__LINE__,"ERROR");
 	}
 
 }
