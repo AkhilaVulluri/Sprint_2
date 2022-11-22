@@ -86,7 +86,7 @@ int main()
 welcomeScreen();
  sleep(3);
  instruction();
- cout<<"THE GAME WILL START IN '3' SEC";
+ cout<<"THE GAME WILL START IN '3' SEC\n";
   sleep(1);
    cout<<"3\n";
  sleep(1);
@@ -136,7 +136,7 @@ welcomeScreen();
 	jump2:
 		cout<<"Exit\n";
 		cout<<"THANK U FOR PLAYING THE GAME \n";
-		cout<<"HAVE A NICE DAY..........!!!!!";
+		cout<<"HAVE A NICE DAY..........!!!!!\n";
 		close(serverid);
 		return 0;
 	}
@@ -161,10 +161,10 @@ welcomeScreen();
 		sid=bind(serverid,(struct sockaddr*)&ssadd,sizeof(ssadd));
 		if(sid==-1)
 		{
-			cout<<"\nBINDING FAILURE AT SERVER SIDE";
+			cout<<"\nBINDING FAILURE AT SERVER SIDE\n";
 			exit(0);
 		}
-		cout<<"\nBINDING SUCCESSFUL AT SERVER SIDE";
+		cout<<"\nBINDING SUCCESSFUL AT SERVER SIDE\n";
 
 		listen(serverid,5);
 
