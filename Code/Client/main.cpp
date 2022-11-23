@@ -125,13 +125,13 @@ welcomeScreen();
 		cout<<"\n";
 		cin>>cho;
 		if(cho==1)
-		goto jump;
+			goto jump;
 		else if(cho==2)
-		goto leader;
+			goto leader;
 		else if(cho==3)
-		goto jump2;
+			goto jump2;
 		else 
-		getchar();
+			getchar();
 		
 	}
 	if(schoice==3)
