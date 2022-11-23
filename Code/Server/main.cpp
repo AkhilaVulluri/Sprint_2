@@ -129,7 +129,20 @@ welcomeScreen();
             cout<<cfile;
         }
 	      cout<<"\n";
-        fclose(filep);
+        	fclose(filep);
+	    	cout<<"\n\nPress 1 to Play again:- ";
+		cout<<"\n\nPress 2 to see the Leaderboard";
+		cout<<"\n\nPress 3 to Exit:-";
+		cout<<"\n";
+		cin>>cho;
+		if(cho==1)
+			goto jump;
+		else if(cho==2)
+			goto leader;
+		else if(cho==3)
+			goto jump2;
+		else 
+			getchar();
 	}
 	if(schoice==3)
 	{
