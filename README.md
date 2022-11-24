@@ -1,2 +1,3 @@
 # Sprint_2
-# group_3
+# Group_3
+# Encrypted and concurrent socket implementation  using gaming application (TIC-TAC-TOE GAME -USING-CLIENT-SERVER-SOCKET)
