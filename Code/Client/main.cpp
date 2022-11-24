@@ -104,14 +104,12 @@ int main()
 	sleep(1);
 	cout<<"1\n";
 		
+		//File Open
 		FILE *filep;
 		filep=fopen("score.txt","aopen+");
 		fclose(filep);
-		//int player=1;
-		//char symbol;
+	
 		int ccleintid;
-		//char str[100];
-		//int clientid;
 		int msgbyte,cho;
 		int choice,aopen,schoice;
 		int icount;
