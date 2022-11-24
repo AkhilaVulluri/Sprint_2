@@ -119,13 +119,12 @@ int main()
 
 		
 	int serverid;
+	//File open
 	FILE *filep;
 	filep=fopen("score.txt","aopen+");
 	fclose(filep);
-	//int player=1;
+	
 	char symbol;
-	//int clientsideid;
-	//char str[100];
 	int cho;
 	//int cid;
 	int msgbyte;
