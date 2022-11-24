@@ -64,7 +64,7 @@ public:
 		{
 
 			printf("[Info]\t");
-			printf(message, args...);
+			//printf(message, args...);
 			printf("[%s] [%s] [%s] [line:%d] ",__TIME__,__FILE__,__func__,__LINE__);
 			printf("\n");
 			file<<"\tDATE:"<<__DATE__<<"\tTIME:"<<__TIME__<<"\tFILENAME:"<<name<<"\tFUNCTIONNAME:"<<__func__<<"\t[line]:"<<line<<"\t"<<message<<endl;
@@ -93,7 +93,7 @@ public:
 		{
 		
 			printf("[Error]\t");
-			printf(message, args...);
+			//printf(message, args...);
 			printf("[%s] [%s] [%s] [line:%d] ",__TIME__,__FILE__,__func__,__LINE__);
 			printf("\n");
 			file<<"\tDATE:"<<__DATE__<<"\tTIME:"<<__TIME__<<"\tFILENAME:"<<name<<"\tFUNCTIONNAME:"<<__func__<<"\t[line]:"<<line<<"\t"<<message<<endl;
