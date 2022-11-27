@@ -293,12 +293,13 @@ int main()
 						square[7] = '7';
 						square[8] = '8';
 						square[9] = '9';
-						close(client_file_descriptor);
+						
 						cout<<"\n";
 						fprintf(filep,"\t\nClient\n");
 						cout<<"\n";
 						getchar();
 						fclose(filep);
+						close(client_file_descriptor);
 						cout<<"\n\nPress 1 to Play Again:- ";
 						cout<<"\n\nPress 2 to see the Leaderboard";
 						cout<<"\n\nPress 3 to Exit:-";
@@ -388,13 +389,14 @@ int main()
 						square[7] = '7';
 						square[8] = '8';
 						square[9] = '9';
-						close(client_file_descriptor);
+						
 						cout<<"\n";
 						fprintf(filep,"\t\nServer\n");
 						cout<<"\n";
 						getchar();
 						fclose(filep);
 						msgbyte=send(client_file_descriptor,&flag,sizeof(flag),0);
+						close(client_file_descriptor);
 						cout<<"\n\nPress 1 to Play Again:- ";
 						cout<<"\n\nPress 2 to see the Leaderboard";
 						cout<<"\n\nPress 3 to Exit:-";
