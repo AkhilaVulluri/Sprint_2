@@ -5,10 +5,12 @@
 #include<sys/socket.h>
 #include<arpa/inet.h>
 #include<unistd.h>
-#include<bits/stdc++.h>
+
 #include<string.h>
 #include<iostream>
-#include "header.h"
+#include<sstream>
+#include<bits/stdc++.h>
+#include"header.h"
 #define MAX 10
 #define BACKLOG 5
 #define INDEX_0 '0'
@@ -131,26 +133,23 @@ int main()
 
 
 		
-	int server_file_discriptor;
+
 	FILE *filep;
 	filep=fopen("score.txt","aopen+");
 	fclose(filep);
-	//int player=1;
-	char symbol;
-	//int clientsideid;
+	int server_file_discriptor;
 	//char str[100];
-	int Inner_choice;
 	//int cid;
-	int msgbyte;
+	int msgbyte, Inner_choice;
 	int choice,aopen,Main_choice;
 	int icount;
 	char mark;
 		
-	 
-	   
+	//Selection of options to proceed into the game    
 	cout<<"\n\nType 1 to start the game:-\nType 2 to view leader board:-\nType 3 to exit:-\n";
 	cin>>Main_choice;
 		
+		// Display of Leaderboard
 		if(Main_choice==2)
 		{
 		leader:
@@ -202,7 +201,7 @@ int main()
 		//Condition to iterate the game
 		if(Main_choice==1)
 		{
-		int sid,port;
+		int bind_file_descriptor,port;
 		port =6999;
 		jump:
 			
@@ -254,7 +253,7 @@ int main()
 				filep=fopen("score.txt","aopen+");
 				if(choice==11)
 				{
-					cout<<"Client Win";
+					cout<<"You win";
 					square[1] = '1';
 					square[2] = '2';
 					square[3] = '3';
@@ -264,12 +263,13 @@ int main()
 					square[7] = '7';
 					square[8] = '8';
 					square[9] = '9';
-					close(server_file_discriptor);
+						
 						cout<<"\n";
-						fprintf(filep,"\t\nClient\n");
+						fprintf(filep,"\t\nServer\n");
 						cout<<"\n";
 						getchar();
 						fclose(filep);
+						close(server_file_discriptor);
 						cout<<"\n\nPress 1 to Play again:- ";
 						cout<<"\n\nPress 2 to see the Leaderboard";
 						cout<<"\n\nPress 3 to Exit:-";
@@ -341,10 +341,11 @@ int main()
 				icount = checkwin();
 				filep=fopen("score.txt","aopen+");
 				cout<<"\n\n"<<icount;
+			
 				if(icount==1)
 				{	board();
 					int flag=10;
-					cout<<"you win";
+					cout<<"client win";
 					square[1] = '1';
 					square[2] = '2';
 					square[3] = '3';
@@ -354,13 +355,15 @@ int main()
 					square[7] = '7';
 					square[8] = '8';
 					square[9] = '9';
-					close(server_file_discriptor);
+					
+				
 					cout<<"\n";
-						fprintf(filep,"\t\nServer\n");
+						fprintf(filep,"\t\nClient\n");
 						cout<<"\n";
 						getchar();
 						fclose(filep);
 						msgbyte=send(accept_file_descriptor,&flag,sizeof(flag),0);
+						close(server_file_discriptor);
 						cout<<"\n\nPress 1 to Play Again:- ";
 						cout<<"\n\nPress 2 to see the Leaderboard";
 						cout<<"\n\nPress 3 to Exit:-";
