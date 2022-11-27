@@ -137,7 +137,7 @@ int main()
 	FILE *filep;
 	filep=fopen("score.txt","aopen+");
 	fclose(filep);
-	int server_file_discriptor;
+	int server_file_descriptor;
 	//char str[100];
 	//int cid;
 	int msgbyte, Inner_choice;
@@ -194,7 +194,7 @@ int main()
 			cout<<"Exit\n";
 			cout<<"THANK U FOR PLAYING THE GAME \n";
 			cout<<"HAVE A NICE DAY..........!!!!!\n";
-			close(server_file_discriptor);
+			close(server_file_descriptor);
 			return 0;
 		}
 		
@@ -207,8 +207,8 @@ int main()
 			
 			//Connection of Server Side
 			
-			server_file_discriptor=socket(AF_INET,SOCK_STREAM,0);
-			if(server_file_discriptor==-1)
+			server_file_descriptor=socket(AF_INET,SOCK_STREAM,0);
+			if(server_file_descriptor==-1)
 			{
 				cout<<"IN SOCKET CREATION IN SERVER SIDE FAILURE\n";
 				exit(0);
@@ -223,7 +223,7 @@ int main()
 			server_sock_address.sin_addr.s_addr=inet_addr("10.0.2.15");
 			
 			//Binding the Ports
-			bind_file_descriptor=bind(server_file_discriptor,(struct sockaddr*)&server_sock_address,sizeof(server_sock_address));
+			bind_file_descriptor=bind(server_file_descriptor,(struct sockaddr*)&server_sock_address,sizeof(server_sock_address));
 			if(bind_file_descriptor==-1)
 			{
 				cout<<"\nBINDING FAILURE AT SERVER SIDE\n";
@@ -231,12 +231,12 @@ int main()
 			}
 			cout<<"\nBINDING SUCCESSFUL AT SERVER SIDE\n";
 
-			listen(server_file_discriptor,BACKLOG);
+			listen(server_file_descriptor,BACKLOG);
 			
 			//Accepting the Connection
 			struct sockaddr_in fadd;
 				socklen_t  len=sizeof(fadd);
-			int accept_file_descriptor=accept(server_file_discriptor,(struct sockaddr*)&fadd,&len);
+			int accept_file_descriptor=accept(server_file_descriptor,(struct sockaddr*)&fadd,&len);
 			if(accept_file_descriptor==(-1))
 			{
 				cout<<"\nFAILURE AT SERVER SIDE IN ACCEPT";
@@ -269,7 +269,7 @@ int main()
 						cout<<"\n";
 						getchar();
 						fclose(filep);
-						close(server_file_discriptor);
+						close(server_file_descriptor);
 						cout<<"\n\nPress 1 to Play again:- ";
 						cout<<"\n\nPress 2 to see the Leaderboard";
 						cout<<"\n\nPress 3 to Exit:-";
@@ -363,7 +363,7 @@ int main()
 						getchar();
 						fclose(filep);
 						msgbyte=send(accept_file_descriptor,&flag,sizeof(flag),0);
-						close(server_file_discriptor);
+						close(server_file_descriptor);
 						cout<<"\n\nPress 1 to Play Again:- ";
 						cout<<"\n\nPress 2 to see the Leaderboard";
 						cout<<"\n\nPress 3 to Exit:-";
@@ -452,7 +452,7 @@ int main()
 		
 		
 		}
-	close(server_file_discriptor);
+	close(server_file_descriptor);
 	return 0;
  
 }
