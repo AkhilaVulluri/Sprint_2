@@ -11,9 +11,20 @@
 #include<bits/stdc++.h>
 #include"header.h"
 #define MAX 10
+#define BACKLOG 5
+#define INDEX_0 '0'
+#define INDEX_1 '1'
+#define INDEX_2 '2'
+#define INDEX_3 '3'
+#define INDEX_4 '4'
+#define INDEX_5 '5'
+#define INDEX_6 '6'
+#define INDEX_7 '7'
+#define INDEX_8 '8'
+#define INDEX_9 '9'
 using namespace std;
 
-char square[MAX] = { 'o', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+char square[MAX] = { INDEX_0, INDEX_1, INDEX_2, INDEX_3, INDEX_4, INDEX_5, INDEX_6, INDEX_7, INDEX_8, INDEX_9 };
 
 //Function to check the possible winning conditions
 int checkwin()
@@ -105,14 +116,16 @@ int main()
 	sleep(1);
 	cout<<"1\n";
 		
-		//File Open
 		FILE *filep;
 		filep=fopen("score.txt","aopen+");
 		fclose(filep);
-	
-		int ccleintid;
-		int msgbyte,cho;
-		int choice,aopen,schoice;
+		//int player=1;
+		//char symbol;
+		int client_file_descriptor;
+		//char str[100];
+		//int clientid;
+		int msgbyte,Inner_choice;
+		int choice,aopen,Main_choice;
 		int icount;
 		char mark;
 		stringstream ss;
@@ -120,10 +133,10 @@ int main()
 	   //Selection of options to proceed into the game 
 	   
 		cout<<"\n\nType 1 to start the game:-\nType 2 to view leader board:-\nType 3 to exit:-\n";
-		cin>>schoice;
+		cin>>Main_choice;
 		
 		// Display of Leaderboard
-		if(schoice==2)
+		if(Main_choice==2)
 		{
 		leader:
 			cout<<"\n\n";
@@ -141,16 +154,16 @@ int main()
 			cout<<"\n\nPress 2 to see the Leaderboard";
 			cout<<"\n\nPress 3 to Exit:-";
 			cout<<"\n";
-			cin>>cho;
-			if(cho==1)
+			cin>>Inner_choice;
+			if(Inner_choice==1)
 			{
 				goto jump;
 			}
-			else if(cho==2)
+			else if(Inner_choice==2)
 			{
 				goto leader;
 			}
-			else if(cho==3)
+			else if(Inner_choice==3)
 			{
 				goto jump2;
 			}
@@ -162,40 +175,40 @@ int main()
 		}
 		
 		//Condition to exit the game
-		if(schoice==3)
+		if(Main_choice==3)
 		{
 		jump2:
 			cout<<"Exit\n";
 			cout<<"THANK U FOR PLAYING THE GAME \n";
 			cout<<"HAVE A NICE DAY..........!!!!!\n";
-			close(ccleintid);
+			close(client_file_descriptor);
 			return 0;
 		}
 		
 		//Condition to iterate the game
-		if(schoice==1)
+		if(Main_choice==1)
 		{
 			int port;
 			port=6999;
 			jump:
-				ccleintid=socket(AF_INET,SOCK_STREAM,0);
-				if(ccleintid==-1)
+				client_file_descriptor=socket(AF_INET,SOCK_STREAM,0);
+				if(client_file_descriptor==-1)
 				{
 					cout<<"IN SOCKET CREATION IN CLIENT SIDE FAILURE\n";
 					exit(0);
 				}
 				cout<<"IN SOCKET CREATION IN CLIENT SIDE SUCCESSFUL\n";
 				port+=1;
-				struct sockaddr_in csadd;
-				csadd.sin_family=AF_INET;
-				csadd.sin_port=htons(port);
-				csadd.sin_addr.s_addr=inet_addr("10.0.2.15");
-				int c=connect(ccleintid,(struct sockaddr*)&csadd,sizeof(csadd));
-				if(c==0)
+				struct sockaddr_in client_sock_address;
+				client_sock_address.sin_family=AF_INET;
+				client_sock_address.sin_port=htons(port);
+				client_sock_address.sin_addr.s_addr=inet_addr("10.0.2.15");
+				int connect_file_descriptor=connect(client_file_descriptor,(struct sockaddr*)&client_sock_address,sizeof(client_sock_address));
+				if(connect_file_descriptor==0)
 				{
 					cout<<"CONNECTION ESTABLISHMENT SUCCESSFUL\n";
 				}
-				if(c==(-1))
+				if(connect_file_descriptor==(-1))
 				{
 					cout<<"CONNECTION ESTABLISHMENT UNSUCCESSFUL\n";
 					exit(0);
@@ -261,11 +274,11 @@ int main()
 					}
 						
 					
-					msgbyte=send(ccleintid,&choice,sizeof(choice),0);
+					msgbyte=send(client_file_descriptor,&choice,sizeof(choice),0);
 					board();
 
 				
-					msgbyte=recv(ccleintid,&choice,sizeof(choice),0);
+					msgbyte=recv(client_file_descriptor,&choice,sizeof(choice),0);
 					
 					filep=fopen("score.txt","aopen+");
 					if(choice==10)
@@ -280,7 +293,7 @@ int main()
 						square[7] = '7';
 						square[8] = '8';
 						square[9] = '9';
-						close(ccleintid);
+						close(client_file_descriptor);
 						cout<<"\n";
 						fprintf(filep,"\t\nClient\n");
 						cout<<"\n";
@@ -290,16 +303,16 @@ int main()
 						cout<<"\n\nPress 2 to see the Leaderboard";
 						cout<<"\n\nPress 3 to Exit:-";
 						cout<<"\n";
-						cin>>cho;
-						if(cho==1)
+						cin>>Inner_choice;
+						if(Inner_choice==1)
 						{
 							goto jump;
 						}
-						else if(cho==2)
+						else if(Inner_choice==2)
 						{
 							goto leader;
 						}
-						else if(cho==3)
+						else if(Inner_choice==3)
 						{
 							goto jump2;
 						}
@@ -375,27 +388,27 @@ int main()
 						square[7] = '7';
 						square[8] = '8';
 						square[9] = '9';
-						close(ccleintid);
+						close(client_file_descriptor);
 						cout<<"\n";
 						fprintf(filep,"\t\nServer\n");
 						cout<<"\n";
 						getchar();
 						fclose(filep);
-						msgbyte=send(ccleintid,&flag,sizeof(flag),0);
+						msgbyte=send(client_file_descriptor,&flag,sizeof(flag),0);
 						cout<<"\n\nPress 1 to Play Again:- ";
 						cout<<"\n\nPress 2 to see the Leaderboard";
 						cout<<"\n\nPress 3 to Exit:-";
 						cout<<"\n";
-						cin>>cho;
-						if(cho==1)
+						cin>>Inner_choice;
+						if(Inner_choice==1)
 						{
 							goto jump;
 						}
-						else if(cho==2)
+						else if(Inner_choice==2)
 						{
 							goto leader;
 						}
-						else if(cho==3)
+						else if(Inner_choice==3)
 						{
 							goto jump2;
 						}
@@ -411,6 +424,6 @@ int main()
 				}
 				
 		}  
-	close(ccleintid);
+	close(client_file_descriptor);
 	return 0;
 }
